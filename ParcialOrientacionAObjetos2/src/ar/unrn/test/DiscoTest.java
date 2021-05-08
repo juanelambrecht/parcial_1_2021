@@ -12,16 +12,17 @@ class DiscoTest {
 
 	@Test
 	void registrarCargaDiscoTest() {
-		String nombreArchivoTipoNafta ="Carga combustible.txt" ;
+		String nombreArchivoTipoNafta = "Carga combustible.txt";
 		String nombreArchivoRegistro = "RegistroCargaNafta.txt";
-		
-		DiscoRegistroCombustible archivoCargaNafta = new DiscoRegistroCombustible(nombreArchivoTipoNafta,nombreArchivoRegistro);
+
+		DiscoRegistroCombustible archivoCargaNafta = new DiscoRegistroCombustible(nombreArchivoTipoNafta,
+				nombreArchivoRegistro);
 		RegistroCarga registro = new RegistroCarga("Super", 15, "2021-05-08", "90");
-		
+
 		archivoCargaNafta.registrarCargaCombustible(registro);
-		
+
 		assertTrue(archivoCargaNafta.existeRegistroCombustible(registro));
-		
+
 	}
 
 }

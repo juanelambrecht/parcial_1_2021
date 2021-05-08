@@ -141,7 +141,7 @@ public class PantallaConsultaVentas extends JFrame {
 		};
 
 		for (RegistroCarga registro : listaRegistro) {
-		
+
 			modeloAct.addRow(new Object[] { registro.obtenerFechaCarga(), registro.obtenerCantidadLitros(),
 					registro.obtenerMontoTotal(), registro.obtenerNombreCombustible() });
 		}
