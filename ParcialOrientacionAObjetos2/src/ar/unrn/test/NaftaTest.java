@@ -17,9 +17,8 @@ class NaftaTest {
 
 	@Test
 	void calcularMontoTotalSuperDiaNormaltest() {
-		String nombreNafta = "Super";
-		int precioPorLitro = 90;
-		Combustible combustible = new CombustibleSuper(nombreNafta, precioPorLitro);
+
+		Combustible combustible = new CombustibleSuper();
 
 		if (!diaHoy.equals("FRIDAY") && diaHoy.equals("SATURDAY"))
 
@@ -28,9 +27,8 @@ class NaftaTest {
 
 	@Test
 	void calcularMontoTotalSuperDomingotest() {
-		String nombreNafta = "Super";
-		int precioPorLitro = 90;
-		Combustible combustible = new CombustibleSuper(nombreNafta, precioPorLitro);
+
+		Combustible combustible = new CombustibleSuper();
 
 		if (diaHoy.equals("FRIDAY"))
 			assertEquals(combustible.calcularMontoTotal(10), 810);
@@ -39,9 +37,8 @@ class NaftaTest {
 
 	@Test
 	void calcularMontoTotalSuperSabadotest() {
-		String nombreNafta = "Super";
-		int precioPorLitro = 90;
-		Combustible combustible = new CombustibleSuper(nombreNafta, precioPorLitro);
+
+		Combustible combustible = new CombustibleSuper();
 
 		if (diaHoy.equals("SATURDAY"))
 			assertEquals(combustible.calcularMontoTotal(20), 1584);
@@ -50,9 +47,8 @@ class NaftaTest {
 
 	@Test
 	void calcularMontoTotalComuntest() {
-		String nombreNafta = "Comun";
-		int precioPorLitro = 70;
-		Combustible combustible = new CombustibleComun(nombreNafta, precioPorLitro);
+
+		Combustible combustible = new CombustibleComun();
 
 		assertEquals(combustible.calcularMontoTotal(10), 700);
 
@@ -60,9 +56,7 @@ class NaftaTest {
 
 	@Test
 	void calcularMontoTotalComunEnRangotest() {
-		String nombreNafta = "Comun";
-		int precioPorLitro = 70;
-		Combustible combustible = new CombustibleComun(nombreNafta, precioPorLitro);
+		Combustible combustible = new CombustibleComun();
 
 		if (seEncuentraEnRango(LocalTime.now()))
 			assertEquals(combustible.calcularMontoTotal(10), 665);

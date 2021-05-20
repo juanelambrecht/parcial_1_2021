@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.unrn.conexion.conexionBD;
 import ar.unrn.modelo.RegistroCarga;
 import ar.unrn.modelo.RepositorioCombustible;
 
@@ -17,7 +16,7 @@ public class JdbcRegistroCombustible implements RepositorioCombustible {
 	public List<String> obtenerTiposCombustibles() throws RuntimeException {
 		List<String> listadoTiposNafta = new ArrayList<String>();
 
-		Connection conexion = conexionBD.getConection();
+		Connection conexion = ConexionBaseDeDatos.getConection();
 		try {
 
 			Statement sent = conexion.createStatement();
@@ -40,10 +39,10 @@ public class JdbcRegistroCombustible implements RepositorioCombustible {
 	}
 
 	@Override
-	public void registrarCargaCombustible(RegistroCarga registro) throws RuntimeException {
+	public void registrarCargaCombustible(RegistroCarga registro) {
 		Connection conexion = null;
 		try {
-			conexion = conexionBD.getConection();
+			conexion = ConexionBaseDeDatos.getConection();
 			conexion.setAutoCommit(false);
 			Statement sent = conexion.createStatement();
 
@@ -67,10 +66,10 @@ public class JdbcRegistroCombustible implements RepositorioCombustible {
 	}
 
 	@Override
-	public List<RegistroCarga> devolverRegistroDeVentas(String fechaInicio, String fechaFin) throws RuntimeException {
+	public List<RegistroCarga> devolverRegistroDeVentas(String fechaInicio, String fechaFin) {
 		List<RegistroCarga> listadoRegistroNafta = new ArrayList<RegistroCarga>();
 
-		Connection conexion = conexionBD.getConection();
+		Connection conexion = ConexionBaseDeDatos.getConection();
 		try {
 
 			Statement sent = conexion.createStatement();
@@ -95,7 +94,7 @@ public class JdbcRegistroCombustible implements RepositorioCombustible {
 
 	@Override
 	public boolean existeRegistroCombustible(RegistroCarga registroCarga) {
-		Connection conexion = conexionBD.getConection();
+		Connection conexion = ConexionBaseDeDatos.getConection();
 		try {
 
 			Statement sent = conexion.createStatement();

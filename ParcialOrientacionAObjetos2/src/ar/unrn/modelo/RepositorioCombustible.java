@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface RepositorioCombustible {
 
-	List<String> obtenerTiposCombustibles() throws RuntimeException;
+	List<String> obtenerTiposCombustibles();
 
-	void registrarCargaCombustible(RegistroCarga registro) throws RuntimeException;
+	void registrarCargaCombustible(RegistroCarga registro);
 
-	List<RegistroCarga> devolverRegistroDeVentas(String fechaInicio, String fechaFin) throws RuntimeException;
+	List<RegistroCarga> devolverRegistroDeVentas(String fechaInicio, String fechaFin);
 
 	boolean existeRegistroCombustible(RegistroCarga registroCarga);
 }

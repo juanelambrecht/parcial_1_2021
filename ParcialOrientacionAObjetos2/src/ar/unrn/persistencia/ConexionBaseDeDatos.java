@@ -1,4 +1,4 @@
-package ar.unrn.conexion;
+package ar.unrn.persistencia;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,13 +9,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class conexionBD {
+public class ConexionBaseDeDatos {
 
 	public static void main(String[] args) {
 
 	}
 
-	public static Connection getConection() throws RuntimeException {
+	public static Connection getConection() {
 
 		Connection conexion = null;
 		Properties propiedades = new Properties();

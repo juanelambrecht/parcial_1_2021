@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ar.unrn.modelo.Combustible;
+import ar.unrn.modelo.EstacionDeServicio;
 import ar.unrn.modelo.RepositorioCombustible;
 
 import java.awt.SystemColor;
@@ -21,8 +22,9 @@ import java.awt.Point;
 public class PantallaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	RepositorioCombustible repositorio;
-	Combustible combustible;
+	// RepositorioCombustible repositorio;
+	// Combustible combustible;
+	EstacionDeServicio estacionDeServicio = new EstacionDeServicio(null);
 
 	/**
 	 * Launch the application.
@@ -40,9 +42,9 @@ public class PantallaPrincipal extends JFrame {
 		});
 	}
 
-	public PantallaPrincipal(RepositorioCombustible repositorio) {
+	public PantallaPrincipal(EstacionDeServicio estacionDeServicio) {
 
-		this.repositorio = repositorio;
+		this.estacionDeServicio = estacionDeServicio;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -61,7 +63,7 @@ public class PantallaPrincipal extends JFrame {
 		boton_cargar_combustible.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new PantallaCargaCombustible(repositorio).setVisible(true);
+					new PantallaCargaCombustible(estacionDeServicio).setVisible(true);
 				} catch (RuntimeException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Informacion", JOptionPane.ERROR_MESSAGE);
 
@@ -76,7 +78,7 @@ public class PantallaPrincipal extends JFrame {
 		boton_consultar_ventas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new PantallaConsultaVentas(repositorio).setVisible(true);
+					new PantallaConsultaVentas(estacionDeServicio).setVisible(true);
 				} catch (RuntimeException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Informacion", JOptionPane.ERROR_MESSAGE);
 

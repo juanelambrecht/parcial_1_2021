@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import com.toedter.calendar.JDateChooser;
 
+import ar.unrn.modelo.EstacionDeServicio;
 import ar.unrn.modelo.RegistroCarga;
 import ar.unrn.modelo.RepositorioCombustible;
 import java.util.Locale;
@@ -36,7 +37,7 @@ import java.awt.event.ActionEvent;
 public class PantallaConsultaVentas extends JFrame {
 
 	private JPanel contentPane;
-	RepositorioCombustible repositorio;
+	EstacionDeServicio estacionDeServicio = new EstacionDeServicio(null);
 	private JTable table;
 	DefaultTableModel modelo;
 	JDateChooser dateChooser;
@@ -60,14 +61,14 @@ public class PantallaConsultaVentas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PantallaConsultaVentas(RepositorioCombustible repositorio) {
+	public PantallaConsultaVentas(EstacionDeServicio estacionDeServicio) {
 		setLocale(new Locale("es", "AR"));
 		setTitle("Consulta De Ventas ");
 		setLocationRelativeTo(null);
 		table = new JTable();
 		table.setGridColor(Color.WHITE);
 
-		this.repositorio = repositorio;
+		this.estacionDeServicio = estacionDeServicio;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 613, 366);
 		contentPane = new JPanel();
@@ -107,10 +108,10 @@ public class PantallaConsultaVentas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (sonFechasValidas() && verificarFecha()) {
+						String fechaDesde = new SimpleDateFormat("yyyy-MM-dd").format(dateChooser.getDate());
+						String fechaHasta = new SimpleDateFormat("yyyy-MM-dd").format(dateChooser_1.getDate());
 
-						ActualizarTabla(repositorio.devolverRegistroDeVentas(
-								new SimpleDateFormat("yyyy-MM-dd").format(dateChooser.getDate()),
-								new SimpleDateFormat("yyyy-MM-dd").format(dateChooser_1.getDate())), titulos);
+						ActualizarTabla(estacionDeServicio.RegistrosDeVentas(fechaDesde, fechaHasta), titulos);
 					}
 				} catch (RuntimeException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import ar.unrn.modelo.Combustible;
 import ar.unrn.modelo.CombustibleComun;
 import ar.unrn.modelo.CombustibleSuper;
+import ar.unrn.modelo.EstacionDeServicio;
 import ar.unrn.modelo.RegistroCarga;
 import ar.unrn.modelo.RepositorioCombustible;
 
@@ -33,9 +34,9 @@ import java.awt.event.ActionEvent;
 public class PantallaCargaCombustible extends JFrame {
 
 	private JPanel contentPane;
-	RepositorioCombustible repositorio;
-	Combustible combustible = new Combustible("", 0);
+
 	JSpinner spinner;
+	EstacionDeServicio estacionDeServicio = new EstacionDeServicio(null);
 
 	/**
 	 * Launch the application.
@@ -56,10 +57,10 @@ public class PantallaCargaCombustible extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PantallaCargaCombustible(RepositorioCombustible repositorio) {
+	public PantallaCargaCombustible(EstacionDeServicio estacionDeServicio) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		this.repositorio = repositorio;
+		this.estacionDeServicio = estacionDeServicio;
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
@@ -86,12 +87,12 @@ public class PantallaCargaCombustible extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-
-				if (comboBox.getSelectedItem().toString().equals("Super"))
-					combustible = new CombustibleSuper(comboBox.getSelectedItem().toString(), 90);
-				else if (comboBox.getSelectedItem().toString().equals("Comun"))
-					combustible = new CombustibleComun(comboBox.getSelectedItem().toString(), 70);
-
+//
+//				if (comboBox.getSelectedItem().toString().equals("Super"))
+//					combustible = new CombustibleSuper(comboBox.getSelectedItem().toString(), 90);
+//				else if (comboBox.getSelectedItem().toString().equals("Comun"))
+//					combustible = new CombustibleComun(comboBox.getSelectedItem().toString(), 70);
+//
 			}
 		});
 		comboBox.setBounds(174, 96, 92, 22);
@@ -99,7 +100,7 @@ public class PantallaCargaCombustible extends JFrame {
 
 		List<String> tiposDecombustibles;
 
-		tiposDecombustibles = this.repositorio.obtenerTiposCombustibles();
+		tiposDecombustibles = this.estacionDeServicio.obtenerTiposCombustibles();
 
 		for (String tiposcombustible : tiposDecombustibles) {
 			comboBox.addItem(tiposcombustible.toString());
@@ -109,16 +110,16 @@ public class PantallaCargaCombustible extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (validarCampos()) {
-						repositorio.registrarCargaCombustible(new RegistroCarga(comboBox.getSelectedItem().toString(),
-								Integer.parseInt(spinner.getValue().toString()), LocalDate.now().toString(),
-								devolverMontoTotal()));
-						JOptionPane.showMessageDialog(null, "CARGA EXITOSA", "Mensaje confirmacion",
-								JOptionPane.YES_OPTION);
-					}
-				} catch (RuntimeException e1) {
-					JOptionPane.showMessageDialog(null, "Algo salio mal", "Mensaje Error", JOptionPane.ERROR_MESSAGE);
+					String tipoCombustible = comboBox.getSelectedItem().toString();
+					int cantidadLitros = Integer.parseInt(spinner.getValue().toString());
 
+					estacionDeServicio.realizarVenta(cantidadLitros, tipoCombustible);
+
+					JOptionPane.showMessageDialog(null, "CARGA EXITOSA", "Mensaje confirmacion",
+							JOptionPane.INFORMATION_MESSAGE);
+
+				} catch (RuntimeException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -128,13 +129,16 @@ public class PantallaCargaCombustible extends JFrame {
 		JButton btnConsultarMontoTotal = new JButton("Consultar Monto Total");
 		btnConsultarMontoTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				JOptionPane
-						.showMessageDialog(null,
-								" \n - Combustible: " + comboBox.getSelectedItem().toString() + "\n - Monto Total: "
-										+ devolverMontoTotal(),
-								"Informacion Monto Total", JOptionPane.INFORMATION_MESSAGE);
-
+				String tipoCombustible = comboBox.getSelectedItem().toString();
+				int cantidadLitros = Integer.parseInt(spinner.getValue().toString());
+				try {
+					JOptionPane.showMessageDialog(null,
+							" \n - Combustible: " + comboBox.getSelectedItem().toString() + "\n - Monto Total: "
+									+ estacionDeServicio.montoTotalCombustible(cantidadLitros, tipoCombustible),
+							"Informacion Monto Total", JOptionPane.INFORMATION_MESSAGE);
+				} catch (RuntimeException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 
 		});
@@ -143,17 +147,4 @@ public class PantallaCargaCombustible extends JFrame {
 		this.setLocationRelativeTo(null);
 	}
 
-	private boolean validarCampos() {
-		if (Integer.parseInt(spinner.getValue().toString()) < 1) {
-			JOptionPane.showMessageDialog(null, "La cantidad de Litros debe ser mayor a 0", "Error al cargar",
-					JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
-		return true;
-	}
-
-	private String devolverMontoTotal() {
-		int cantidadLitros = Integer.parseInt(spinner.getValue().toString());
-		return "" + combustible.calcularMontoTotal(cantidadLitros);
-	}
 }

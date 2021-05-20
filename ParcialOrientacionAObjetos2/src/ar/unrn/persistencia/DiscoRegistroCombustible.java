@@ -44,7 +44,7 @@ public class DiscoRegistroCombustible implements RepositorioCombustible {
 	}
 
 	@Override
-	public List<String> obtenerTiposCombustibles() throws RuntimeException {
+	public List<String> obtenerTiposCombustibles() {
 		String nombreFichero = this.nombreArchivoTipoNafta;
 		ArrayList<String> tipoNafta = new ArrayList<String>();
 		try {
@@ -62,7 +62,7 @@ public class DiscoRegistroCombustible implements RepositorioCombustible {
 	}
 
 	@Override
-	public void registrarCargaCombustible(RegistroCarga registro) throws RuntimeException {
+	public void registrarCargaCombustible(RegistroCarga registro) {
 		String nombreFichero = this.nombreArchivoRegistro;
 		listadoRegistroNafta.add(registro);
 		try {
@@ -78,7 +78,7 @@ public class DiscoRegistroCombustible implements RepositorioCombustible {
 	}
 
 	@Override
-	public List<RegistroCarga> devolverRegistroDeVentas(String fechaInicio, String fechaFin) throws RuntimeException {
+	public List<RegistroCarga> devolverRegistroDeVentas(String fechaInicio, String fechaFin) {
 
 		String nombreFichero = this.nombreArchivoRegistro;
 		List<RegistroCarga> listadoRegistroNafta = new ArrayList<RegistroCarga>();
