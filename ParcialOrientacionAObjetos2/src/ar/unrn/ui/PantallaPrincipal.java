@@ -22,8 +22,7 @@ import java.awt.Point;
 public class PantallaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	// RepositorioCombustible repositorio;
-	// Combustible combustible;
+	
 	EstacionDeServicio estacionDeServicio = new EstacionDeServicio(null);
 
 	/**

@@ -4,7 +4,7 @@ import ar.unrn.modelo.EstacionDeServicio;
 import ar.unrn.persistencia.JdbcRegistroCombustible;
 import ar.unrn.ui.PantallaPrincipal;
 
-public class MainPersistenciaBD {
+public class MainPersistenciaBaseDeDatos {
 
 	public static void main(String[] args) {
 

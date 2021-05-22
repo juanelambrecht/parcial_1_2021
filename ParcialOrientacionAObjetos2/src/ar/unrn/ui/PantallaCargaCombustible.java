@@ -85,16 +85,7 @@ public class PantallaCargaCombustible extends JFrame {
 		contentPane.add(spinner);
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-//
-//				if (comboBox.getSelectedItem().toString().equals("Super"))
-//					combustible = new CombustibleSuper(comboBox.getSelectedItem().toString(), 90);
-//				else if (comboBox.getSelectedItem().toString().equals("Comun"))
-//					combustible = new CombustibleComun(comboBox.getSelectedItem().toString(), 70);
-//
-			}
-		});
+		
 		comboBox.setBounds(174, 96, 92, 22);
 		contentPane.add(comboBox);
 
