@@ -8,18 +8,19 @@ public class RegistroCarga implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String nombreNafta, montoTotal;
+	String nombreNafta;
+	int montoTotal;
 	int cantidadLitros;
 	String fechaCarga;
 
-	public RegistroCarga(String nombreCombustible, int cantidadLitros, String fechaCarga, String montoTotal) {
+	public RegistroCarga(String nombreCombustible, int cantidadLitros, String fechaCarga, int montoTotal) {
 		if (nombreCombustible.isEmpty()) {
 			throw new RuntimeException("El nombre no esta definido");
 		}
 		if (fechaCarga.isEmpty()) {
 			throw new RuntimeException("No se definio una fecha de carga");
 		}
-		if (montoTotal.isEmpty()) {
+		if (montoTotal < 1) {
 			throw new RuntimeException("El monto total no esta definido");
 		}
 
@@ -29,19 +30,19 @@ public class RegistroCarga implements Serializable {
 		this.montoTotal = montoTotal;
 	}
 
-	public String obtenerNombreCombustible() {
+	public String NombreCombustible() {
 		return nombreNafta;
 	}
 
-	public int obtenerCantidadLitros() {
+	public int CantidadLitros() {
 		return cantidadLitros;
 	}
 
-	public String obtenerFechaCarga() {
+	public String FechaCarga() {
 		return fechaCarga;
 	}
 
-	public String obtenerMontoTotal() {
+	public int MontoTotal() {
 		return montoTotal;
 	}
 

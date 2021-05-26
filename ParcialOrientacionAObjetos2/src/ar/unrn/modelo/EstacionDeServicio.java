@@ -12,6 +12,8 @@ public class EstacionDeServicio {
 	public EstacionDeServicio(RepositorioCombustible repositorio) {
 		super();
 		this.repositorio = repositorio;
+		// llave super y valor combustibleSuper
+		// Con el metodo put() agrego un item al HashMap.
 		this.tipoCombustible.put("Super", new CombustibleSuper());
 		this.tipoCombustible.put("Comun", new CombustibleComun());
 	}
@@ -24,17 +26,20 @@ public class EstacionDeServicio {
 		if (esCombustibleValido(tipoDeCombustible)) {
 			throw new RuntimeException("El tipo de combustible se encuentra vacio");
 		}
+		// obtengo del map el combustible - segun la key
 		Combustible combustible = tipoCombustible.get(tipoDeCombustible);
 
 		return combustible.calcularMontoTotal(cantidadLitros);
 	}
 
 	public void realizarVenta(int cantidadLitros, String tipoDeCombustible) {
+		
 		int precioTotal = this.montoTotalCombustible(cantidadLitros, tipoDeCombustible);
 
 		String hoy = LocalDate.now().toString();
 
-		RegistroCarga registro = new RegistroCarga(tipoDeCombustible, cantidadLitros, hoy, "" + precioTotal);
+		RegistroCarga registro = new RegistroCarga(tipoDeCombustible, cantidadLitros, hoy, precioTotal);
+		
 		repositorio.registrarCargaCombustible(registro);
 	}
 

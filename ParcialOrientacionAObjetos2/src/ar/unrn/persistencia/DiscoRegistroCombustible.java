@@ -92,7 +92,7 @@ public class DiscoRegistroCombustible implements RepositorioCombustible {
 			listadoRegistroNafta = (ArrayList<RegistroCarga>) entrada.readObject();
 
 			for (RegistroCarga registro : listadoRegistroNafta) {
-				if (verificarRangoFecha(fechaInicio, fechaFin, registro.obtenerFechaCarga()))
+				if (verificarRangoFecha(fechaInicio, fechaFin, registro.FechaCarga()))
 					listadoRegistroNaftaRetorno.add(registro);
 			}
 			entrada.close();

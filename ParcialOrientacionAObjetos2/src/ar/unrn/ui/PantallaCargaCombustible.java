@@ -1,18 +1,13 @@
 package ar.unrn.ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ar.unrn.modelo.Combustible;
-import ar.unrn.modelo.CombustibleComun;
-import ar.unrn.modelo.CombustibleSuper;
 import ar.unrn.modelo.EstacionDeServicio;
-import ar.unrn.modelo.RegistroCarga;
-import ar.unrn.modelo.RepositorioCombustible;
+
 
 import javax.swing.JButton;
 import java.awt.Font;
@@ -25,13 +20,15 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
-import java.awt.event.ItemListener;
-import java.time.LocalDate;
-import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class PantallaCargaCombustible extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 
@@ -84,7 +81,7 @@ public class PantallaCargaCombustible extends JFrame {
 		spinner.setBounds(174, 40, 70, 20);
 		contentPane.add(spinner);
 
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		
 		comboBox.setBounds(174, 96, 92, 22);
 		contentPane.add(comboBox);
@@ -101,6 +98,7 @@ public class PantallaCargaCombustible extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					
 					String tipoCombustible = comboBox.getSelectedItem().toString();
 					int cantidadLitros = Integer.parseInt(spinner.getValue().toString());
 

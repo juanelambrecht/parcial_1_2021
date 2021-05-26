@@ -48,8 +48,8 @@ public class JdbcRegistroCombustible implements RepositorioCombustible {
 
 			sent.executeUpdate(
 					"INSERT INTO `registro`(`fecha_carga`, `cantidad_litros`, `monto`,`nombre_tipo_nafta`) VALUES (CURRENT_TIMESTAMP(),'"
-							+ registro.obtenerCantidadLitros() + "','" + registro.obtenerMontoTotal() + "','"
-							+ registro.obtenerNombreCombustible() + "')");
+							+ registro.CantidadLitros() + "','" + registro.MontoTotal() + "','"
+							+ registro.NombreCombustible() + "')");
 
 			conexion.commit();
 			conexion.close();
@@ -58,8 +58,7 @@ public class JdbcRegistroCombustible implements RepositorioCombustible {
 			try {
 				conexion.rollback();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				throw new RuntimeException();
 			}
 			throw new RuntimeException();
 		}
@@ -78,8 +77,11 @@ public class JdbcRegistroCombustible implements RepositorioCombustible {
 					+ fechaInicio + "', '%Y-%m-%d') AND DATE_FORMAT('" + fechaFin + "', '%Y-%m-%d')");
 
 			while (resul.next()) {
+				
+				int montoTotal = Integer.parseInt(resul.getString("monto"));
+				
 				listadoRegistroNafta.add(new RegistroCarga(resul.getString("nombre_tipo_nafta"),
-						resul.getInt("cantidad_litros"), resul.getString("fecha_carga"), resul.getString("monto")));
+						resul.getInt("cantidad_litros"), resul.getString("fecha_carga"),montoTotal ));
 
 			}
 
@@ -100,8 +102,8 @@ public class JdbcRegistroCombustible implements RepositorioCombustible {
 			Statement sent = conexion.createStatement();
 
 			ResultSet resul = sent.executeQuery(
-					"SELECT * FROM `registro` WHERE `nombre_tipo_nafta` = '" + registroCarga.obtenerNombreCombustible()
-							+ "' AND `monto` = '" + registroCarga.obtenerMontoTotal() + "'");
+					"SELECT * FROM `registro` WHERE `nombre_tipo_nafta` = '" + registroCarga.NombreCombustible()
+							+ "' AND `monto` = '" + registroCarga.MontoTotal() + "'");
 
 			if (resul.next()) {
 				return true;

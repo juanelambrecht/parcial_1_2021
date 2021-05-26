@@ -13,7 +13,7 @@ class JdbcTest {
 	void registrarCargaJDBCTest() {
 		JdbcRegistroCombustible DataBase = new JdbcRegistroCombustible();
 
-		RegistroCarga registro = new RegistroCarga("Super", 15, "2021-05-08", "93");
+		RegistroCarga registro = new RegistroCarga("Super", 15, "2021-05-08", 93);
 
 		DataBase.registrarCargaCombustible(registro);
 
