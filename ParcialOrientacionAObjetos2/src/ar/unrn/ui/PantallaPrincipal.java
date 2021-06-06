@@ -10,20 +10,22 @@ import javax.swing.border.EmptyBorder;
 
 import ar.unrn.modelo.Combustible;
 import ar.unrn.modelo.EstacionDeServicio;
+import ar.unrn.modelo.Observer;
 import ar.unrn.modelo.RepositorioCombustible;
 
 import java.awt.SystemColor;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Point;
 
 public class PantallaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	
-	EstacionDeServicio estacionDeServicio = new EstacionDeServicio(null);
+	private List<Observer> monitores;
+	EstacionDeServicio estacionDeServicio;
 
 	/**
 	 * Launch the application.
@@ -32,8 +34,7 @@ public class PantallaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PantallaPrincipal frame = new PantallaPrincipal(null);
-					frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,8 +42,8 @@ public class PantallaPrincipal extends JFrame {
 		});
 	}
 
-	public PantallaPrincipal(EstacionDeServicio estacionDeServicio) {
-
+	public PantallaPrincipal(EstacionDeServicio estacionDeServicio,List<Observer> monitores) {
+		this.monitores = monitores;
 		this.estacionDeServicio = estacionDeServicio;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +63,7 @@ public class PantallaPrincipal extends JFrame {
 		boton_cargar_combustible.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new PantallaCargaCombustible(estacionDeServicio).setVisible(true);
+					new PantallaCargaCombustible(estacionDeServicio,monitores).setVisible(true);
 				} catch (RuntimeException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Informacion", JOptionPane.ERROR_MESSAGE);
 

@@ -37,7 +37,7 @@ import java.awt.event.ActionEvent;
 public class PantallaConsultaVentas extends JFrame {
 
 	private JPanel contentPane;
-	EstacionDeServicio estacionDeServicio = new EstacionDeServicio(null);
+	EstacionDeServicio estacionDeServicio;
 	private JTable table;
 	DefaultTableModel modelo;
 	JDateChooser dateChooser;

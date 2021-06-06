@@ -34,9 +34,7 @@ public class ConexionBaseDeDatos {
 			return conexion;
 
 		} catch (ClassNotFoundException e) {
-			System.out.println("Error al cargar el controlador");
 			e.printStackTrace();
-
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} catch (FileNotFoundException e) {

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ar.unrn.modelo.Observer;
 import ar.unrn.modelo.EstacionDeServicio;
 
 
@@ -22,6 +23,7 @@ import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class PantallaCargaCombustible extends JFrame {
 
@@ -33,8 +35,9 @@ public class PantallaCargaCombustible extends JFrame {
 	private JPanel contentPane;
 
 	JSpinner spinner;
-	EstacionDeServicio estacionDeServicio = new EstacionDeServicio(null);
-
+	EstacionDeServicio estacionDeServicio;
+	private JTextField textField_email;
+	private List<Observer> monitores;
 	/**
 	 * Launch the application.
 	 */
@@ -42,8 +45,7 @@ public class PantallaCargaCombustible extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PantallaCargaCombustible frame = new PantallaCargaCombustible(null);
-					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,7 +56,8 @@ public class PantallaCargaCombustible extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PantallaCargaCombustible(EstacionDeServicio estacionDeServicio) {
+	public PantallaCargaCombustible(EstacionDeServicio estacionDeServicio,List<Observer> monitores) {
+		this.monitores = monitores;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		this.estacionDeServicio = estacionDeServicio;
@@ -64,6 +67,12 @@ public class PantallaCargaCombustible extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lblEmailCliente = new JLabel("Email Cliente");
+		lblEmailCliente.setForeground(Color.WHITE);
+		lblEmailCliente.setFont(new Font("Yu Gothic Medium", Font.BOLD, 13));
+		lblEmailCliente.setBounds(52, 146, 151, 27);
+		contentPane.add(lblEmailCliente);
 
 		JLabel lblNewLabel = new JLabel("Tipo combustible");
 		lblNewLabel.setFont(new Font("Yu Gothic Medium", Font.BOLD, 13));
@@ -106,13 +115,15 @@ public class PantallaCargaCombustible extends JFrame {
 
 					JOptionPane.showMessageDialog(null, "CARGA EXITOSA", "Mensaje confirmacion",
 							JOptionPane.INFORMATION_MESSAGE);
+					
+					
 
 				} catch (RuntimeException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		btnNewButton.setBounds(81, 179, 125, 23);
+		btnNewButton.setBounds(78, 201, 125, 23);
 		contentPane.add(btnNewButton);
 
 		JButton btnConsultarMontoTotal = new JButton("Consultar Monto Total");
@@ -131,9 +142,13 @@ public class PantallaCargaCombustible extends JFrame {
 			}
 
 		});
-		btnConsultarMontoTotal.setBounds(223, 179, 168, 23);
+		btnConsultarMontoTotal.setBounds(220, 201, 168, 23);
 		contentPane.add(btnConsultarMontoTotal);
+		
+		textField_email = new JTextField();
+		textField_email.setBounds(174, 146, 142, 20);
+		contentPane.add(textField_email);
+		textField_email.setColumns(10);
 		this.setLocationRelativeTo(null);
 	}
-
 }

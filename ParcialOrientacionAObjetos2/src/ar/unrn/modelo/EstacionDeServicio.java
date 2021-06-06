@@ -5,17 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EstacionDeServicio {
+public class EstacionDeServicio extends Observable{
 	private RepositorioCombustible repositorio;
 	private Map<String, Combustible> tipoCombustible = new HashMap<String, Combustible>();
 
-	public EstacionDeServicio(RepositorioCombustible repositorio) {
+	public EstacionDeServicio(RepositorioCombustible repositorio, List<Observer> monitores) {
 		super();
 		this.repositorio = repositorio;
 		// llave super y valor combustibleSuper
-		// Con el metodo put() agrego un item al HashMap.
 		this.tipoCombustible.put("Super", new CombustibleSuper());
 		this.tipoCombustible.put("Comun", new CombustibleComun());
+		
+		for (Observer observer : monitores) {
+	         this.agregarObservador(observer);
+	     }	
 	}
 
 	public int montoTotalCombustible(int cantidadLitros, String tipoDeCombustible) {
@@ -33,7 +36,7 @@ public class EstacionDeServicio {
 	}
 
 	public void realizarVenta(int cantidadLitros, String tipoDeCombustible) {
-		
+
 		int precioTotal = this.montoTotalCombustible(cantidadLitros, tipoDeCombustible);
 
 		String hoy = LocalDate.now().toString();
@@ -41,6 +44,10 @@ public class EstacionDeServicio {
 		RegistroCarga registro = new RegistroCarga(tipoDeCombustible, cantidadLitros, hoy, precioTotal);
 		
 		repositorio.registrarCargaCombustible(registro);
+		
+		String informacion = "Tipo de Combustible: " + tipoDeCombustible + " Cantidad de Litros: " + cantidadLitros + " Precio Total: " + precioTotal;
+		
+		this.comunicarObserver(informacion);
 	}
 
 	public List<String> obtenerTiposCombustibles() {
@@ -52,7 +59,6 @@ public class EstacionDeServicio {
 	}
 
 	private boolean esLitroValido(int cantidadLitros) {
-		System.out.println(cantidadLitros);
 		return cantidadLitros < 1;
 	}
 

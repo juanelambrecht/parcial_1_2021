@@ -8,6 +8,6 @@ public class MainPersistenciaBaseDeDatos {
 
 	public static void main(String[] args) {
 
-		new PantallaPrincipal(new EstacionDeServicio(new JdbcRegistroCombustible())).setVisible(true);
+		//new PantallaPrincipal(new EstacionDeServicio(new JdbcRegistroCombustible()), null).setVisible(true);
 	}
 }
